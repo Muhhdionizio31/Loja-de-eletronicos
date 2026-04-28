@@ -20,10 +20,11 @@ def index(request:Request):
 @app.get("/eletronico/cadastro")
 def exibir_cadastro(request: Request, db: Session = Depends(get_db)):
     categorias = db.query(Eletronico).all()
+    produtos = db.query(Produto).all()
     return templates.TemplateResponse(
         request,
         "cadastrar.html",
-        {"request": request, "categorias": categorias })
+        {"request": request, "categorias": categorias, "produtos": produtos })
 @app.post("/eletronico")
 def criar_eletronico(
     nome: str = Form(...),
@@ -60,5 +61,16 @@ def deletar_eletronico(
     categoria = db.query(Eletronico).filter(Eletronico.id == id).first()
     if categoria:
         db.delete(categoria)
+        db.commit()
+    return RedirectResponse(url="/eletronico/cadastro", status_code=303)
+
+@app.post("/produto/{id}/deletar")
+def deletar_produto(
+    id: int,
+    db: Session = Depends(get_db)
+):
+    produto = db.query(Produto).filter(Produto.id == id).first()
+    if produto:
+        db.delete(produto)
         db.commit()
     return RedirectResponse(url="/eletronico/cadastro", status_code=303)
