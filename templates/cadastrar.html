@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Administrativo | Lojinha</title>
+    <title>Administração | Lojinha Tech</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -11,10 +11,11 @@
         :root {
             --primary: #2563eb;
             --success: #10b981;
-            --bg: #f1f5f9;
+            --danger: #ef4444;
+            --bg: #f8fafc;
             --white: #ffffff;
             --text-dark: #0f172a;
-            --text-light: #64748b;
+            --text-muted: #64748b;
             --border: #e2e8f0;
         }
 
@@ -27,12 +28,11 @@
             padding: 40px 5%;
         }
 
-        .header { margin-bottom: 30px; }
-        .header h1 { font-size: 1.8rem; font-weight: 700; }
-
-        .grid {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: 1fr 1.5fr;
             gap: 30px;
         }
 
@@ -41,29 +41,22 @@
             padding: 25px;
             border-radius: 12px;
             border: 1px solid var(--border);
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        h2 { font-size: 1.1rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        h2 { font-size: 1.2rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         h2 i { color: var(--primary); }
 
         .form-group { margin-bottom: 15px; }
-
         label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
 
         input, select, textarea {
             width: 100%;
-            padding: 10px 12px;
+            padding: 10px;
             border: 1px solid var(--border);
             border-radius: 8px;
-            font-family: inherit;
-            background: #f8fafc;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            font-size: 0.9rem;
+            background: #fdfdfd;
         }
 
         .btn {
@@ -73,108 +66,119 @@
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
+            color: white;
             transition: 0.2s;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 8px;
-            color: white;
         }
 
-        .btn-primary { background: var(--primary); }
-        .btn-success { background: var(--success); }
+        .btn-blue { background: var(--primary); }
+        .btn-green { background: var(--success); }
+        .btn-red { background: var(--danger); padding: 6px 12px; width: auto; font-size: 0.8rem; }
         .btn:hover { opacity: 0.9; transform: translateY(-1px); }
 
-        .cat-list {
-            margin-top: 20px;
+        /* Lista de Itens */
+        .item-list {
             list-style: none;
-            border-top: 1px solid var(--border);
-            padding-top: 15px;
+            margin-top: 20px;
+            border-top: 2px solid var(--bg);
         }
 
-        .cat-item {
-            padding: 8px 0;
-            border-bottom: 1px dashed var(--border);
-            font-size: 0.9rem;
+        .item-row {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
         }
 
-        .id-badge {
-            background: #e2e8f0;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            color: var(--text-light);
-        }
+        .item-info b { font-size: 0.95rem; }
+        .item-info span { font-size: 0.75rem; color: var(--text-muted); display: block; }
 
-        @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+        @media (max-width: 850px) { .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Painel de Cadastro</h1>
-        <a href="/" style="text-decoration: none; color: var(--text-light); font-size: 0.9rem;">
-            <i class="fas fa-arrow-left"></i> Voltar para Início
+    <header style="margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <h1>Painel Administrativo</h1>
+            <p style="color: var(--text-muted)">Gerencie categorias e produtos da loja</p>
+        </div>
+        <a href="/" style="text-decoration: none; color: var(--primary); font-weight: 600;">
+            <i class="fas fa-external-link-alt"></i> Ver Loja
         </a>
-    </div>
+    </header>
 
-    <div class="grid">
+    <div class="container">
         
-        <section class="card">
-            <h2><i class="fas fa-tags"></i> Nova Categoria</h2>
-            
-            <form action="/eletronico" method="POST">
-                <div class="form-group">
-                    <label>Nome do Eletrônico</label>
-                    <input type="text" name="nome" placeholder="Ex: Celulares" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Adicionar Categoria</button>
-            </form>
+        <section>
+            <div class="card">
+                <h2><i class="fas fa-folder-plus"></i> Nova Categoria</h2>
+                <form action="/eletronico" method="POST">
+                    <div class="form-group">
+                        <label>Nome da Categoria</label>
+                        <input type="text" name="nome" placeholder="Ex: Periféricos" required>
+                    </div>
+                    <button type="submit" class="btn btn-blue">Adicionar Categoria</button>
+                </form>
 
-            <div class="cat-list">
-                <strong>Categorias no Banco:</strong>
-                {% for cat in categorias %}
-                <div class="cat-item">
-                    <span>{{ cat.nome }}</span>
-                    <span class="id-badge">ID: {{ cat.id }}</span>
+                <div style="margin-top: 30px;">
+                    <h3>Categorias Atuais</h3>
+                    <ul class="item-list">
+                        {% for cat in categorias %}
+                        <li class="item-row">
+                            <div class="item-info">
+                                <b>{{ cat.nome }}</b>
+                                <span>ID: {{ cat.id }}</span>
+                            </div>
+                            
+                            <form action="/eletronico/{{ cat.id }}/deletar" method="POST">
+                                <button type="submit" class="btn btn-red" 
+                                        onclick="return confirm('Deseja excluir esta categoria e desvincular seus produtos?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </li>
+                        {% else %}
+                        <p style="color: var(--text-muted); font-size: 0.85rem; padding: 20px 0;">Nenhuma categoria cadastrada.</p>
+                        {% endfor %}
+                    </ul>
                 </div>
-                {% else %}
-                <p style="color: var(--text-light); font-size: 0.8rem; margin-top: 10px;">Nenhuma categoria encontrada.</p>
-                {% endfor %}
             </div>
         </section>
 
-        <section class="card">
-            <h2><i class="fas fa-box"></i> Novo Produto</h2>
-            
-            <form action="/produto/salvar" method="POST">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <section>
+            <div class="card">
+                <h2><i class="fas fa-box-open"></i> Cadastrar Produto</h2>
+                <form action="/produto/salvar" method="POST">
                     <div class="form-group">
                         <label>Nome do Produto</label>
-                        <input type="text" name="nome" placeholder="Ex: iPhone 15" required>
+                        <input type="text" name="nome" placeholder="Ex: Mouse Gamer RGB" required>
                     </div>
+
                     <div class="form-group">
-                        <label>Vincular Categoria</label>
+                        <label>Categoria Relacionada</label>
                         <select name="eletronico_id" required>
-                            <option value="" disabled selected>Selecione...</option>
+                            <option value="" disabled selected>Vincular a uma categoria...</option>
                             {% for cat in categorias %}
                                 <option value="{{ cat.id }}">{{ cat.nome }} (ID: {{ cat.id }})</option>
                             {% endfor %}
                         </select>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label>Descrição</label>
-                    <textarea name="descricao" rows="4" placeholder="Detalhes técnicos do produto..."></textarea>
-                </div>
+                    <div class="form-group">
+                        <label>Descrição do Produto</label>
+                        <textarea name="descricao" rows="5" placeholder="Descreva as especificações do item..." required></textarea>
+                    </div>
 
-                <button type="submit" class="btn btn-success">
-                    <i class="fas fa-save"></i> Salvar Produto
-                </button>
-            </form>
+                    <button type="submit" class="btn btn-green">
+                        <i class="fas fa-check-circle"></i> Salvar Produto no Inventário
+                    </button>
+                </form>
+            </div>
         </section>
 
     </div>

@@ -50,4 +50,15 @@ def salvar_produto(
     
     db.add(novo_produto)
     db.commit()
-    return RedirectResponse(url="/produto_criado", status_code=303)
+    return RedirectResponse(url="/eletronico/cadastro", status_code=303)
+
+@app.post("/eletronico/{id}/deletar")
+def deletar_eletronico(
+    id: int,
+    db: Session = Depends(get_db)
+):
+    categoria = db.query(Eletronico).filter(Eletronico.id == id).first()
+    if categoria:
+        db.delete(categoria)
+        db.commit()
+    return RedirectResponse(url="/eletronico/cadastro", status_code=303)
