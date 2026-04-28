@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechNova | Premium Electronics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #2563eb; 
+            --primary-hover: #1d4ed8;
+            --bg-light: #f8fafc;
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        header {
+            background: var(--white);
+            padding: 1rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .search-bar {
+            flex: 0 1 400px;
+            display: flex;
+            align-items: center;
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            margin: 0 1.5rem;
+        }
+
+        .search-bar input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            outline: none;
+            padding-left: 10px;
+            font-size: 0.9rem;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1.2rem;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .nav-icons i { 
+            cursor: pointer; 
+            transition: var(--transition); 
+        }
+
+        .nav-icons i:hover { color: var(--primary); }
+
+        /* Botão Administrador */
+        .btn-admin {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--text-gray);
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            transition: var(--transition);
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-admin:hover {
+            background-color: var(--text-dark);
+            color: var(--white);
+            border-color: var(--text-dark);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: flex;
+            align-items: center;
+            padding: 4rem 5%;
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            min-height: 70vh;
+        }
+
+        .hero-content { flex: 1; padding-right: 2rem; }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: #0f172a;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .btn-cta {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .btn-cta:hover {
+            background: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        }
+
+        .hero-image { flex: 1; text-align: center; }
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.1));
+        }
+
+        /* --- GRID DE PRODUTOS --- */
+        .container { padding: 5rem 5%; }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 3rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 20px;
+            position: relative;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .product-card:hover {
+            border-color: var(--border);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow);
+        }
+
+        .badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: #ef4444;
+            color: white;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            z-index: 10;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-info h3 { font-size: 1rem; margin-bottom: 0.5rem; font-weight: 600; }
+        
+        .rating { color: #f59e0b; font-size: 0.8rem; margin-bottom: 1rem; }
+
+        .price-area { margin-bottom: 1.5rem; }
+        .old-price { text-decoration: line-through; color: var(--text-gray); font-size: 0.85rem; }
+        .current-price { display: block; font-size: 1.4rem; font-weight: 700; }
+
+        .btn-add {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1.5px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-add:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* --- DIFERENCIAIS --- */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            background: var(--white);
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .feature-item i { font-size: 2rem; color: var(--primary); margin-bottom: 1.2rem; }
+        .feature-item h4 { margin-bottom: 0.5rem; font-size: 1.1rem; }
+        .feature-item p { color: var(--text-gray); font-size: 0.9rem; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #0f172a;
+            color: white;
+            padding: 5rem 5% 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-col h4 { margin-bottom: 1.5rem; font-size: 1.1rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 0.8rem; }
+        .footer-col a { color: #94a3b8; text-decoration: none; transition: var(--transition); font-size: 0.9rem; }
+        .footer-col a:hover { color: white; }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 992px) {
+            header { flex-wrap: wrap; }
+            .search-bar { order: 3; flex: 1 0 100%; margin: 1rem 0 0 0; }
+            .hero-content h1 { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 600px) {
+            .nav-right { gap: 0.8rem; }
+            .btn-admin { padding: 0.4rem 0.6rem; font-size: 0.65rem; }
+            .hero { padding: 2rem 5%; text-align: center; }
+            .hero-content { padding-right: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">TECH<span style="color:var(--text-dark)">NOVA</span></a>
+        
+        <div class="search-bar">
+            <i class="fas fa-search" style="color: var(--text-gray)"></i>
+            <input type="text" placeholder="Buscar produtos, marcas e mais...">
+        </div>
+
+        <div class="nav-right">
+            <div class="nav-icons">
+                <i class="far fa-user"></i>
+                <div style="position: relative;">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span style="position:absolute; top:-8px; right:-8px; background:var(--primary); color:white; font-size:0.65rem; padding:2px 5px; border-radius:50%; font-weight:700">3</span>
+                </div>
+            </div>
+            
+            <a href="/cadastro" class="btn-admin">Sou administrador</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>O Futuro na sua mão.</h1>
+            <p>Descubra a nova geração de dispositivos inteligentes projetados para elevar sua produtividade e lazer.</p>
+            <a href="#produtos" class="btn-cta">Explorar Ofertas</a>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=600&q=80" alt="Gadget Premium">
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="feature-item">
+            <i class="fas fa-truck-fast"></i>
+            <h4>Entrega Expressa</h4>
+            <p>Receba em até 24h nas capitais.</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-credit-card"></i>
+            <h4>Parcelamento</h4>
+            <p>Até 12x sem juros no cartão.</p>
+        </div>
+        <div class="feature-item">
+            <i class="fas fa-shield-check"></i>
+            <h4>Compra Segura</h4>
+            <p>Garantia oficial de 12 meses.</p>
+        </div>
+    </section>
+
+    <main class="container" id="produtos">
+        <div class="section-header">
+            <h2>Mais Vendidos</h2>
+            <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem;">Ver tudo →</a>
+        </div>
+
+        <div class="product-grid">
+            
+            <article class="product-card">
+                <span class="badge">OFERTA</span>
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" alt="Headphone">
+                <div class="product-info">
+                    <h3>Headphone Noise Cancelling</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <div class="price-area">
+                        <span class="old-price">R$ 1.899,00</span>
+                        <span class="current-price">R$ 1.450,00</span>
+                    </div>
+                    <button class="btn-add">Adicionar ao Carrinho</button>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80" alt="Watch">
+                <div class="product-info">
+                    <h3>Smartwatch Series Elite</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                    </div>
+                    <div class="price-area">
+                        <span class="current-price">R$ 2.199,00</span>
+                    </div>
+                    <button class="btn-add">Adicionar ao Carrinho</button>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <span class="badge">NEW</span>
+                <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&w=400&q=80" alt="Laptop">
+                <div class="product-info">
+                    <h3>Notebook Workstation X</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="price-area">
+                        <span class="old-price">R$ 7.200,00</span>
+                        <span class="current-price">R$ 6.499,00</span>
+                    </div>
+                    <button class="btn-add">Adicionar ao Carrinho</button>
+                </div>
+            </article>
+
+            <article class="product-card">
+                <img src="https://images.unsplash.com/photo-1551645120-d70bfe84c826?auto=format&fit=crop&w=400&q=80" alt="Monitor">
+                <div class="product-info">
+                    <h3>Monitor Gaming 4K Ultra</h3>
+                    <div class="rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <div class="price-area">
+                        <span class="current-price">R$ 3.100,00</span>
+                    </div>
+                    <button class="btn-add">Adicionar ao Carrinho</button>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="#" class="logo" style="color: white; margin-bottom: 1.5rem; display: block;">TECHNOVA</a>
+                <p>Líder em tecnologia premium no Brasil. Qualidade e inovação para o seu dia a dia.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Categorias</h4>
+                <ul>
+                    <li><a href="#">Computadores</a></li>
+                    <li><a href="#">Áudio & Som</a></li>
+                    <li><a href="#">Smartphones</a></li>
+                    <li><a href="#">Periféricos</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Ajuda</h4>
+                <ul>
+                    <li><a href="#">Central de Suporte</a></li>
+                    <li><a href="#">Termos de Uso</a></li>
+                    <li><a href="#">Política de Troca</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Social</h4>
+                <div class="nav-icons" style="gap: 1rem; color: #94a3b8;">
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-linkedin"></i>
+                    <i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+        <div style="border-top: 1px solid #1e293b; padding-top: 2rem; text-align: center; color: #64748b; font-size: 0.8rem;">
+            &copy; 2026 TechNova Electronics. Todos os direitos reservados.
+        </div>
+    </footer>
+
+</body>
+</html>
