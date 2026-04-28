@@ -17,3 +17,20 @@ def index(request:Request):
         {"request":request}
     )
 
+@app.get("/eletronico/cadastro")
+def exibir_cadastro(request:Request):
+    return templates.TemplateResponse(
+        request,
+        "cadastrar.html",
+        {"request":request}
+    )
+
+@app.post("/eletronico")
+def criar_eletronico(
+    nome: str = Form(...),
+    db: Session = Depends(get_db)
+):
+    novo_eletronico = Eletronico(nome=nome)
+    db.add(novo_eletronico)
+    db.commit()
+    return RedirectResponse(url="/", status_code=303)
